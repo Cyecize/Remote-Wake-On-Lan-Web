@@ -1,0 +1,19 @@
+<html>
+
+<head>
+    <title>WOL Login</title>
+</head>
+
+<body>
+<h1>Enter password for <span th:text="${username}"></span></h1>
+
+<form action="" method="post">
+    <input name="username" type="hidden" th:value="${username}">
+    <label>
+        Password
+        <input name="password" type="password" placeholder="*********">
+    </label>
+    <button type="submit">Login</button>
+</form>
+</body>
+</html>
