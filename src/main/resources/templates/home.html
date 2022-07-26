@@ -1,0 +1,19 @@
+<html lang="en">
+
+<head>
+    <title>WOL: Home</title>
+</head>
+
+<body>
+<h1>Welcome to WOL!</h1>
+<p th:if="${awake}">Your pc is awake</p>
+<p th:if="${!awake}">Your pc is sleeping</p>
+
+<div th:if="${!awake}">
+    <hr>
+    <form action="" method="post">
+        <button type="submit">Wake Up Your PC</button>
+    </form>
+</div>
+</body>
+</html>
