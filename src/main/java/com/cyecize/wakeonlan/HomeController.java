@@ -2,6 +2,7 @@ package com.cyecize.wakeonlan;
 
 import com.cyecize.wakeonlan.api.ping.PingService;
 import com.cyecize.wakeonlan.api.wakeup.WakeUpService;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -9,10 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
@@ -32,6 +33,8 @@ public class HomeController {
 
     private final WakeUpService wakeUpService;
 
+    private final RestTemplate restTemplate;
+
 
     @GetMapping("/")
     public ModelAndView home(Model model) {
@@ -47,5 +50,11 @@ public class HomeController {
         redirectAttributes.addFlashAttribute("wait", this.wait);
 
         return new ModelAndView("redirect:/");
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/my-ip", produces = "application/json")
+    public String getMyIp() {
+        return restTemplate.getForObject("http://ipinfo.io/json", String.class);
     }
 }

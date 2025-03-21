@@ -6,6 +6,7 @@
 
 <body>
 <h1>Welcome to WOL!</h1>
+<small>Server IP is <strong id="ipAddress">Loading...</strong></small>
 <p th:if="${awake}">Your pc is awake</p>
 <p th:if="${!awake}">Your pc is sleeping</p>
 
@@ -16,4 +17,16 @@
     </form>
 </div>
 </body>
+
+<script>
+    fetch('/my-ip')
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('ipAddress').textContent = data.ip;
+    })
+    .catch(error => {
+        console.error('Error fetching IP:', error);
+        document.getElementById('ipAddress').textContent = 'Unknown';
+    });
+</script>
 </html>
